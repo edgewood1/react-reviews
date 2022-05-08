@@ -1,22 +1,27 @@
-# Boot up the sample server
+## The app
 
-npm run serve
+This is a simple app with two views: 
+- the 'list view' shows a series of objects
+- click on an object to see details in the 'detail view'
+- 'detail view' allows for adding / editing a single review
+  
 
-[http://localhost:8000/reviews]
+## Steps for running this app
 
-## Boot up the app
+`npm run install` - install dependencies
 
-npm run start
+`npm run serve` - run json-server, whose api will appear at [http://localhost:8000/reviews]
+
+`npm run start` - run the app
+
 
 ## Test the List page
 
-npm run test
+`npm run test` - single test that uses a mock api
 
-# Create a build
+## Create a build
 
-npm run build
-
-See build folder
+`npm run build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -26,7 +31,9 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Other
+
+`npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
