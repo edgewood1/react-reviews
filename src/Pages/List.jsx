@@ -1,37 +1,35 @@
 import Grid from '@mui/material/Grid';
 import { Card } from '../Components/Card';
-import { useEffect, useState } from 'react';
-import Api from '../Api'
-import { generatePath, useNavigate} from "react-router-dom";
+import { useNavigate, generatePath } from 'react-router-dom';
+import {useState, useEffect} from 'react' 
+import { read } from '../Api'
 
-const List = ({isDesktop}) => {
-  console.log('list!!')
-  // hook props
+const List = ({ isDesktop }) => {
+  const size = isDesktop ? 3 : 12;
   const [ data, setData ] = useState([]);
   const navigate = useNavigate();
   
-  // make an api call 
+  const apiCall = async () => {
+    const response = await read();
+    setData(response);
+  }
+  
   useEffect(() => {
-    const apiCall = async () => {
-      const response = await Api();  
-      setData(response);
-    }
     apiCall();
   },[]);
 
-  const handleClick = (id) => {
+  const handleListClick = (id) => {
     navigate(generatePath(`/details/:id`, {id}));
   }
-
-  const size = isDesktop ? 3 : 12;
+  
   return (
     <Grid container spacing={6}>
-      {data.map(review => (
-        <Grid key={review.id} onClick={() => handleClick(review.id)} item xs={size}>
-          <Card review={review} />
+      {data ? data.map(review => (
+        <Grid key={review.id} onClick={() => handleListClick(review.id)} item xs={size}>
+          <Card main review={review} />
         </Grid>
         )
-      )}
+      ) : ''}
     </Grid>
   )
 }

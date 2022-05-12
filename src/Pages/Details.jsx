@@ -1,52 +1,47 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Card } from '../Components/Card';
 import BasicModal from '../Components/Modal';
-import Api from '../Api';
-
+import { read, update } from '../Api';
 
 const Details = ({isDesktop}) => {
+  // hooks
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
-  const [modalReview, setModalReview] = useState('');
-  const navigate = useNavigate();
-  const {id} = useParams(); 
+  const {id} = useParams();
 
-  const navToList = useCallback(() => {
-    navigate('/list');
-  }, [navigate])
-
-  const apiCall = useCallback(async(body, method) => {
-    const response = await Api(body, method);
-    if (Object.keys(response).length < 1 || response.length < 1) navToList();
+  // initial call
+  const callApi = useCallback(async () => {
+    const response = await read(id);
     setSelectedItem(response);
-  }, [navToList])
+  }, [id])
 
   useEffect(()=> {
-    apiCall(id);
-  }, [apiCall, id])
+    callApi();
+  }, [callApi])
 
-  const onModal = () => {
+  const handleModal = () => {
     setOpen(!open);
   }
 
-  const onAdd = () => {
-    const obj = {...selectedItem};
-    obj.review = modalReview;
-    apiCall(obj, 'PUT');
+  const onAdd = async (text) => {
+    const obj = {review: text};
+    const payload = {...selectedItem, ...obj};
+    const response = await update(id, payload);
+    setSelectedItem(response);
     setOpen(!open);
   }
 
   const modalObj = {
-    open, setOpen, setModalReview, modalReview, selectedItem, isDesktop, onAdd
+    open, setOpen, selectedItem, isDesktop, onAdd
   }
 
   return (
     <div>
-      <Card navToList={navToList} onModal={onModal} review={selectedItem} />
+      <Card main handleModal={handleModal} review={selectedItem} />
       <div style={{marginTop: '40px'}}></div>
       {selectedItem.review ? 
-        <Card response onModal={onModal} review={selectedItem} />
+        <Card handleModal={handleModal} review={selectedItem} />
         : ''
       }
       <BasicModal {...modalObj}  />  

@@ -1,36 +1,38 @@
+export const read = (id=null) => {
+  return Api('GET', id);
+}
+
+export const update = (id, payload) => {
+  return Api('PUT', id, payload);
+}
+
 /**
- * Api Call
- * @param {string | object | undefined} body - the id or body for a get-with-param or put request
- * @param {string | undefined} method - currently only used as a GET or PUT
+ * Api
+ * @param method {string} GET or PUT
+ * @param id {string | null} id of response from the Details page
+ * @param payload {string | object | null} 
  * @returns {Promise}
  * @description this currently handles 3 options
- * if body & method is undefined: GET /
- * if body is a string: GET /:id
- * if body is an object PUT / with body in payload
  */
-
-const Api = async (body, method = 'GET') => {
-  if (body) {
-    var payload = typeof body === 'string' ? body : body.id;
-  }
-
+const Api = async (method, id, payload=null) => {
   let url =  `http://localhost:8000/reviews`
-  url = payload ? `${url}/${payload}` : url;
+  url = (id) ? `${url}/${id}` : url;
 
   const options = {
     method: method,
     headers: { 'Content-Type': 'application/json' },
   } 
 
-  if (typeof body !== 'string' && method!=='GET') options.body = JSON.stringify(body)
+  if (payload) {
+    options.body = JSON.stringify(payload);
+  }
   
   try{
-    const response = await fetch(url, options );
+    const response = await fetch(url, options);
     return await response.json();
   } catch(error) {
-    console.log(error);
+    console.log('error------', error);
     return error
   }
 }
 
-export default Api;

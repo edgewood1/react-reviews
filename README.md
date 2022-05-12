@@ -1,12 +1,23 @@
 ## The app
 
-This is a simple app with two views: 
-- the 'list view' shows a series of objects
-- click on an object to see details in the 'detail view'
-- 'detail view' allows for adding / editing a single review
+The spec for this app requires two views:
+1. the 'list view' that shows the rating, username, and date on each object
+    - click on a card to see details in the 'detail view'
+2. the 'detail view' that shows 2 cards: a main card with object details + a review card with the review 
+    - click the arrow to return
+    - if no review is present, click the + to add a review
+    - if a review is present, click the edit button to revise the review
+    - only one review is allowed per object.
+
+Other details
+- shouldn't use typescript
+- should be responsive, so both pages scale to phone or desktop
+- consider adding a test
   
 
 ## Steps for running this app
+
+`nvm use stable` - run stable node
 
 `npm run install` - install dependencies
 
@@ -18,6 +29,11 @@ This is a simple app with two views:
 ## Test the List page
 
 `npm run test` - single test that uses a mock api
+
+# Branchs
+
+- main: inital attempt
+- app-state
 
 ## Create a build
 

@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import ButtonAppBar from './Components/NavBar';
 import Container from '@mui/material/Container';
 // pages
@@ -13,9 +13,9 @@ const App = ()  => {
       <ButtonAppBar /> 
       <Container style={{marginTop: '20px'}}>    
         <Routes>
-          <Route path="/list" element={<List isDesktop = {isDesktop}/>} />
+          <Route path="/" element={<List isDesktop = {isDesktop}/>} />
           <Route path="/details/:id" element={<Details isDesktop = {isDesktop}/>} />
-          <Route path="*" element={<List  isDesktop = {isDesktop} />} />
+          <Route path="*" element={<Navigate replace to="/" />} />
         </Routes>
       </Container>
     </div>

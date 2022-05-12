@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import styled from '@emotion/styled'
 import { TextareaAutosize } from '@mui/material';
-import { useRef  } from 'react';
+import { useRef, useState  } from 'react';
 
 const Wrapper = styled.div`
   display: flex; justify-content: center; margin-top: 20px;
@@ -19,7 +19,8 @@ const IconStyle = {
 /**
  * BasicModal displays controllers
  */
-export default function BasicModal({ onAdd, setModalReview, open, setOpen, selectedItem, isDesktop}) {
+export default function BasicModal({ onAdd, open, setOpen, selectedItem, isDesktop}) {
+  const [text, setText] = useState('');
   const input = useRef();
   const style = {
     position: 'absolute',
@@ -37,7 +38,7 @@ export default function BasicModal({ onAdd, setModalReview, open, setOpen, selec
   };
   
   const handleTextChange = (e) => {
-    setModalReview(e.target.value);    
+    setText(e.target.value);    
   }
 
   return (
@@ -64,7 +65,7 @@ export default function BasicModal({ onAdd, setModalReview, open, setOpen, selec
             onChange={handleTextChange}          
           />
             <Wrapper> 
-              <Button onClick={onAdd}> Save </Button> 
+              <Button onClick={()=> onAdd(text)}> Save </Button> 
             </Wrapper>
         </Box>
       </Modal>
