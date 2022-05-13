@@ -6,14 +6,14 @@ import Typography from '@mui/material/Typography';
 /**
  * Basic Toolbar displays page
  */
-export default function ButtonAppBar() {
-  return (
-    <AppBar position="static">
-      <Toolbar>
-        <Typography variant="h6">
-          Reviews
-        </Typography>
-      </Toolbar>
-    </AppBar>
-  );
-}
+const ButtonAppBar = () => (
+  <AppBar position="static">
+    <Toolbar>
+      <Typography variant="h6">
+        Reviews
+      </Typography>
+    </Toolbar>
+  </AppBar>
+);
+
+export default ButtonAppBar;

@@ -1,12 +1,16 @@
-// __tests__/fetch.test.js
-
-import { render, screen } from '@testing-library/react';
+import React from 'react';
+import {
+  render, screen
+} from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import List from '../List';
-import {BrowserRouter} from 'react-router-dom';
+
+// eslint-disable-next-line no-undef
 test('renders learn react link', async () => {
-  render(<BrowserRouter><List></List></BrowserRouter>); 
-  
+  render(<BrowserRouter><List /></BrowserRouter>);
+
   const items = await screen.findAllByText(/Everett Bender/i);
   // console.log(await screen.findAllByRole('button'))
+  // eslint-disable-next-line no-undef
   expect(items).toHaveLength(1);
 });
